@@ -1,0 +1,52 @@
+
+write(" ");
+write("======= Comprobación de asignaciones, write, read y funciones predefinidas ========");
+write(" ");
+a=2*5;
+
+/* a=1 */
+/*se comprueba que se salta la asignacion dentro del comentario */
+
+write ("Valor de la variable A: ", a);
+read ("Inserte otro número: ", x);
+z=a+x;
+write("La suma es Z = ",z);
+
+; /* sentencia vacia */
+
+write("El arcoseno  de cero es: ", ASIN(0));
+write("El seno de cero es: ", SIN(0));
+write("Redondeando 1.3 inferiormente = ",FLOOR(1.3));
+write("Redondear 1.3 superiormente = ",CEIL(1.3));
+
+/*se puede comprobar el resto de funciones como log y exp */
+
+write(" ");
+write("======= Comprobación de if-else ========");
+write(" ");
+
+if(a<z){
+	write("Z es mayor que A");
+}else{
+	write("Z es menor que A");
+}
+
+write(" ");
+write("======= Comprobación de if y while ========");
+write(" ");
+
+n=1;
+while(n<6){
+	if(n<4){
+		write("Valor de n = ",n);
+	}
+	n=n+1;
+	}
+
+write(" ");
+write("======= Comprobación del for ========");
+write(" ");
+
+for(i=0;i=i+1;i<6){
+	write("Valor de i= ", i);
+	}

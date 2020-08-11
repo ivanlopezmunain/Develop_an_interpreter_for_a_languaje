@@ -1,0 +1,2639 @@
+Estado 30 conflictos: 2 desplazamiento/reducción
+Estado 136 conflictos: 1 desplazamiento/reducción
+
+
+Gramática
+
+    0 $accept: prog $end
+
+    1 prog: progelem
+    2     | prog progelem
+
+    3 progelem: statement EOL
+    4         | EOL
+    5         | PUNTOYCOMA
+
+    6 statement: IDENT '=' ternary PUNTOYCOMA
+    7          | WRITE '(' ternary ')' PUNTOYCOMA
+    8          | WRITE '(' STR ')' PUNTOYCOMA
+    9          | WRITE '(' STR COMA ternary ')' PUNTOYCOMA
+   10          | READ '(' IDENT ')' PUNTOYCOMA
+   11          | READ '(' STR COMA IDENT ')' PUNTOYCOMA
+   12          | expr
+   13          | whilestmt
+   14          | ifstmt
+   15          | forstmt
+
+   16 ternary: ternary '?' ternary ':' ternary
+   17        | expr
+
+   18 ifstmt: IF '(' ternary ')' CORCHETES EOL body EOL CORCHETES
+   19       | IF '(' ternary ')' CORCHETES EOL body EOL CORCHETES ELSE CORCHETES EOL body EOL CORCHETES
+
+   20 whilestmt: WHILE '(' ternary ')' CORCHETES EOL body EOL CORCHETES
+
+   21 forstmt: FOR '(' statement statement ternary ')' CORCHETES EOL body EOL CORCHETES
+
+   22 body: statement
+   23     | body EOL statement
+
+   24 expr: expr OR expr
+   25     | expr AND expr
+   26     | expr EQ expr
+   27     | expr NE expr
+   28     | expr LE expr
+   29     | expr GE expr
+   30     | expr '<' expr
+   31     | expr '>' expr
+   32     | expr '+' expr
+   33     | expr '-' expr
+   34     | expr '*' expr
+   35     | expr '/' expr
+   36     | expr '^' expr
+   37     | '!' expr
+   38     | '+' expr
+   39     | '-' expr
+   40     | '(' ternary ')'
+   41     | FLOAT
+   42     | IDENT
+   43     | SIN '(' ternary ')'
+   44     | ASIN '(' ternary ')'
+   45     | COS '(' ternary ')'
+   46     | ACOS '(' ternary ')'
+   47     | TAN '(' ternary ')'
+   48     | ATAN '(' ternary ')'
+   49     | CEIL '(' ternary ')'
+   50     | FLOOR '(' ternary ')'
+   51     | EXP '(' ternary ')'
+   52     | LOG '(' ternary ')'
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+'!' (33) 37
+'(' (40) 7 8 9 10 11 18 19 20 21 40 43 44 45 46 47 48 49 50 51 52
+')' (41) 7 8 9 10 11 18 19 20 21 40 43 44 45 46 47 48 49 50 51 52
+'*' (42) 34
+'+' (43) 32 38
+'-' (45) 33 39
+'/' (47) 35
+':' (58) 16
+'<' (60) 30
+'=' (61) 6
+'>' (62) 31
+'?' (63) 16
+'^' (94) 36
+error (256)
+OR (258) 24
+AND (259) 25
+EQ (260) 26
+NE (261) 27
+LE (262) 28
+GE (263) 29
+UNOP (264)
+IDENT (265) 6 10 11 42
+EOL (266) 3 4 18 19 20 21 23
+COMA (267) 9 11
+PUNTOYCOMA (268) 5 6 7 8 9 10 11
+CORCHETES (269) 18 19 20 21
+WRITE (270) 7 8 9
+SIN (271) 43
+COS (272) 45
+TAN (273) 47
+READ (274) 10 11
+IF (275) 18 19
+ELSE (276) 19
+FOR (277) 21
+ASIN (278) 44
+ACOS (279) 46
+ATAN (280) 48
+WHILE (281) 20
+CEIL (282) 49
+FLOOR (283) 50
+EXP (284) 51
+LOG (285) 52
+FLOAT (286) 41
+STR (287) 8 9 11
+
+
+No terminales con las reglas donde aparecen
+
+$accept (46)
+    en la izquierda: 0
+prog (47)
+    en la izquierda: 1 2, en la derecha: 0 2
+progelem (48)
+    en la izquierda: 3 4 5, en la derecha: 1 2
+statement (49)
+    en la izquierda: 6 7 8 9 10 11 12 13 14 15, en la derecha: 3 21
+    22 23
+ternary (50)
+    en la izquierda: 16 17, en la derecha: 6 7 9 16 18 19 20 21 40
+    43 44 45 46 47 48 49 50 51 52
+ifstmt (51)
+    en la izquierda: 18 19, en la derecha: 14
+whilestmt (52)
+    en la izquierda: 20, en la derecha: 13
+forstmt (53)
+    en la izquierda: 21, en la derecha: 15
+body (54)
+    en la izquierda: 22 23, en la derecha: 18 19 20 21 23
+expr (55)
+    en la izquierda: 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39
+    40 41 42 43 44 45 46 47 48 49 50 51 52, en la derecha: 12 17 24
+    25 26 27 28 29 30 31 32 33 34 35 36 37 38 39
+
+
+Estado 0
+
+    0 $accept: . prog $end
+
+    '+'         desplazar e ir al estado 1
+    '-'         desplazar e ir al estado 2
+    '!'         desplazar e ir al estado 3
+    IDENT       desplazar e ir al estado 4
+    EOL         desplazar e ir al estado 5
+    PUNTOYCOMA  desplazar e ir al estado 6
+    WRITE       desplazar e ir al estado 7
+    SIN         desplazar e ir al estado 8
+    COS         desplazar e ir al estado 9
+    TAN         desplazar e ir al estado 10
+    READ        desplazar e ir al estado 11
+    IF          desplazar e ir al estado 12
+    FOR         desplazar e ir al estado 13
+    ASIN        desplazar e ir al estado 14
+    ACOS        desplazar e ir al estado 15
+    ATAN        desplazar e ir al estado 16
+    WHILE       desplazar e ir al estado 17
+    CEIL        desplazar e ir al estado 18
+    FLOOR       desplazar e ir al estado 19
+    EXP         desplazar e ir al estado 20
+    LOG         desplazar e ir al estado 21
+    FLOAT       desplazar e ir al estado 22
+    '('         desplazar e ir al estado 23
+
+    prog       ir al estado 24
+    progelem   ir al estado 25
+    statement  ir al estado 26
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    expr       ir al estado 30
+
+
+Estado 1
+
+   38 expr: '+' . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 32
+
+
+Estado 2
+
+   39 expr: '-' . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 33
+
+
+Estado 3
+
+   37 expr: '!' . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 34
+
+
+Estado 4
+
+    6 statement: IDENT . '=' ternary PUNTOYCOMA
+   42 expr: IDENT .
+
+    '='  desplazar e ir al estado 35
+
+    $default  reduce usando la regla 42 (expr)
+
+
+Estado 5
+
+    4 progelem: EOL .
+
+    $default  reduce usando la regla 4 (progelem)
+
+
+Estado 6
+
+    5 progelem: PUNTOYCOMA .
+
+    $default  reduce usando la regla 5 (progelem)
+
+
+Estado 7
+
+    7 statement: WRITE . '(' ternary ')' PUNTOYCOMA
+    8          | WRITE . '(' STR ')' PUNTOYCOMA
+    9          | WRITE . '(' STR COMA ternary ')' PUNTOYCOMA
+
+    '('  desplazar e ir al estado 36
+
+
+Estado 8
+
+   43 expr: SIN . '(' ternary ')'
+
+    '('  desplazar e ir al estado 37
+
+
+Estado 9
+
+   45 expr: COS . '(' ternary ')'
+
+    '('  desplazar e ir al estado 38
+
+
+Estado 10
+
+   47 expr: TAN . '(' ternary ')'
+
+    '('  desplazar e ir al estado 39
+
+
+Estado 11
+
+   10 statement: READ . '(' IDENT ')' PUNTOYCOMA
+   11          | READ . '(' STR COMA IDENT ')' PUNTOYCOMA
+
+    '('  desplazar e ir al estado 40
+
+
+Estado 12
+
+   18 ifstmt: IF . '(' ternary ')' CORCHETES EOL body EOL CORCHETES
+   19       | IF . '(' ternary ')' CORCHETES EOL body EOL CORCHETES ELSE CORCHETES EOL body EOL CORCHETES
+
+    '('  desplazar e ir al estado 41
+
+
+Estado 13
+
+   21 forstmt: FOR . '(' statement statement ternary ')' CORCHETES EOL body EOL CORCHETES
+
+    '('  desplazar e ir al estado 42
+
+
+Estado 14
+
+   44 expr: ASIN . '(' ternary ')'
+
+    '('  desplazar e ir al estado 43
+
+
+Estado 15
+
+   46 expr: ACOS . '(' ternary ')'
+
+    '('  desplazar e ir al estado 44
+
+
+Estado 16
+
+   48 expr: ATAN . '(' ternary ')'
+
+    '('  desplazar e ir al estado 45
+
+
+Estado 17
+
+   20 whilestmt: WHILE . '(' ternary ')' CORCHETES EOL body EOL CORCHETES
+
+    '('  desplazar e ir al estado 46
+
+
+Estado 18
+
+   49 expr: CEIL . '(' ternary ')'
+
+    '('  desplazar e ir al estado 47
+
+
+Estado 19
+
+   50 expr: FLOOR . '(' ternary ')'
+
+    '('  desplazar e ir al estado 48
+
+
+Estado 20
+
+   51 expr: EXP . '(' ternary ')'
+
+    '('  desplazar e ir al estado 49
+
+
+Estado 21
+
+   52 expr: LOG . '(' ternary ')'
+
+    '('  desplazar e ir al estado 50
+
+
+Estado 22
+
+   41 expr: FLOAT .
+
+    $default  reduce usando la regla 41 (expr)
+
+
+Estado 23
+
+   40 expr: '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 51
+    expr     ir al estado 52
+
+
+Estado 24
+
+    0 $accept: prog . $end
+    2 prog: prog . progelem
+
+    $end        desplazar e ir al estado 53
+    '+'         desplazar e ir al estado 1
+    '-'         desplazar e ir al estado 2
+    '!'         desplazar e ir al estado 3
+    IDENT       desplazar e ir al estado 4
+    EOL         desplazar e ir al estado 5
+    PUNTOYCOMA  desplazar e ir al estado 6
+    WRITE       desplazar e ir al estado 7
+    SIN         desplazar e ir al estado 8
+    COS         desplazar e ir al estado 9
+    TAN         desplazar e ir al estado 10
+    READ        desplazar e ir al estado 11
+    IF          desplazar e ir al estado 12
+    FOR         desplazar e ir al estado 13
+    ASIN        desplazar e ir al estado 14
+    ACOS        desplazar e ir al estado 15
+    ATAN        desplazar e ir al estado 16
+    WHILE       desplazar e ir al estado 17
+    CEIL        desplazar e ir al estado 18
+    FLOOR       desplazar e ir al estado 19
+    EXP         desplazar e ir al estado 20
+    LOG         desplazar e ir al estado 21
+    FLOAT       desplazar e ir al estado 22
+    '('         desplazar e ir al estado 23
+
+    progelem   ir al estado 54
+    statement  ir al estado 26
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    expr       ir al estado 30
+
+
+Estado 25
+
+    1 prog: progelem .
+
+    $default  reduce usando la regla 1 (prog)
+
+
+Estado 26
+
+    3 progelem: statement . EOL
+
+    EOL  desplazar e ir al estado 55
+
+
+Estado 27
+
+   14 statement: ifstmt .
+
+    $default  reduce usando la regla 14 (statement)
+
+
+Estado 28
+
+   13 statement: whilestmt .
+
+    $default  reduce usando la regla 13 (statement)
+
+
+Estado 29
+
+   15 statement: forstmt .
+
+    $default  reduce usando la regla 15 (statement)
+
+
+Estado 30
+
+   12 statement: expr .
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    OR   desplazar e ir al estado 56
+    AND  desplazar e ir al estado 57
+    EQ   desplazar e ir al estado 58
+    NE   desplazar e ir al estado 59
+    LE   desplazar e ir al estado 60
+    GE   desplazar e ir al estado 61
+    '<'  desplazar e ir al estado 62
+    '>'  desplazar e ir al estado 63
+    '+'  desplazar e ir al estado 64
+    '-'  desplazar e ir al estado 65
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    '+'       [reduce usando la regla 12 (statement)]
+    '-'       [reduce usando la regla 12 (statement)]
+    $default  reduce usando la regla 12 (statement)
+
+
+Estado 31
+
+   42 expr: IDENT .
+
+    $default  reduce usando la regla 42 (expr)
+
+
+Estado 32
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+   38     | '+' expr .
+
+    $default  reduce usando la regla 38 (expr)
+
+
+Estado 33
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+   39     | '-' expr .
+
+    $default  reduce usando la regla 39 (expr)
+
+
+Estado 34
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+   37     | '!' expr .
+
+    $default  reduce usando la regla 37 (expr)
+
+
+Estado 35
+
+    6 statement: IDENT '=' . ternary PUNTOYCOMA
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 69
+    expr     ir al estado 52
+
+
+Estado 36
+
+    7 statement: WRITE '(' . ternary ')' PUNTOYCOMA
+    8          | WRITE '(' . STR ')' PUNTOYCOMA
+    9          | WRITE '(' . STR COMA ternary ')' PUNTOYCOMA
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    STR    desplazar e ir al estado 70
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 71
+    expr     ir al estado 52
+
+
+Estado 37
+
+   43 expr: SIN '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 72
+    expr     ir al estado 52
+
+
+Estado 38
+
+   45 expr: COS '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 73
+    expr     ir al estado 52
+
+
+Estado 39
+
+   47 expr: TAN '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 74
+    expr     ir al estado 52
+
+
+Estado 40
+
+   10 statement: READ '(' . IDENT ')' PUNTOYCOMA
+   11          | READ '(' . STR COMA IDENT ')' PUNTOYCOMA
+
+    IDENT  desplazar e ir al estado 75
+    STR    desplazar e ir al estado 76
+
+
+Estado 41
+
+   18 ifstmt: IF '(' . ternary ')' CORCHETES EOL body EOL CORCHETES
+   19       | IF '(' . ternary ')' CORCHETES EOL body EOL CORCHETES ELSE CORCHETES EOL body EOL CORCHETES
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 77
+    expr     ir al estado 52
+
+
+Estado 42
+
+   21 forstmt: FOR '(' . statement statement ternary ')' CORCHETES EOL body EOL CORCHETES
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 4
+    WRITE  desplazar e ir al estado 7
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    READ   desplazar e ir al estado 11
+    IF     desplazar e ir al estado 12
+    FOR    desplazar e ir al estado 13
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    statement  ir al estado 78
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    expr       ir al estado 30
+
+
+Estado 43
+
+   44 expr: ASIN '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 79
+    expr     ir al estado 52
+
+
+Estado 44
+
+   46 expr: ACOS '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 80
+    expr     ir al estado 52
+
+
+Estado 45
+
+   48 expr: ATAN '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 81
+    expr     ir al estado 52
+
+
+Estado 46
+
+   20 whilestmt: WHILE '(' . ternary ')' CORCHETES EOL body EOL CORCHETES
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 82
+    expr     ir al estado 52
+
+
+Estado 47
+
+   49 expr: CEIL '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 83
+    expr     ir al estado 52
+
+
+Estado 48
+
+   50 expr: FLOOR '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 84
+    expr     ir al estado 52
+
+
+Estado 49
+
+   51 expr: EXP '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 85
+    expr     ir al estado 52
+
+
+Estado 50
+
+   52 expr: LOG '(' . ternary ')'
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 86
+    expr     ir al estado 52
+
+
+Estado 51
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   40 expr: '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 87
+    '?'  desplazar e ir al estado 88
+
+
+Estado 52
+
+   17 ternary: expr .
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    OR   desplazar e ir al estado 56
+    AND  desplazar e ir al estado 57
+    EQ   desplazar e ir al estado 58
+    NE   desplazar e ir al estado 59
+    LE   desplazar e ir al estado 60
+    GE   desplazar e ir al estado 61
+    '<'  desplazar e ir al estado 62
+    '>'  desplazar e ir al estado 63
+    '+'  desplazar e ir al estado 64
+    '-'  desplazar e ir al estado 65
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    $default  reduce usando la regla 17 (ternary)
+
+
+Estado 53
+
+    0 $accept: prog $end .
+
+    $default  aceptar
+
+
+Estado 54
+
+    2 prog: prog progelem .
+
+    $default  reduce usando la regla 2 (prog)
+
+
+Estado 55
+
+    3 progelem: statement EOL .
+
+    $default  reduce usando la regla 3 (progelem)
+
+
+Estado 56
+
+   24 expr: expr OR . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 89
+
+
+Estado 57
+
+   25 expr: expr AND . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 90
+
+
+Estado 58
+
+   26 expr: expr EQ . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 91
+
+
+Estado 59
+
+   27 expr: expr NE . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 92
+
+
+Estado 60
+
+   28 expr: expr LE . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 93
+
+
+Estado 61
+
+   29 expr: expr GE . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 94
+
+
+Estado 62
+
+   30 expr: expr '<' . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 95
+
+
+Estado 63
+
+   31 expr: expr '>' . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 96
+
+
+Estado 64
+
+   32 expr: expr '+' . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 97
+
+
+Estado 65
+
+   33 expr: expr '-' . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 98
+
+
+Estado 66
+
+   34 expr: expr '*' . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 99
+
+
+Estado 67
+
+   35 expr: expr '/' . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 100
+
+
+Estado 68
+
+   36 expr: expr '^' . expr
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    expr  ir al estado 101
+
+
+Estado 69
+
+    6 statement: IDENT '=' ternary . PUNTOYCOMA
+   16 ternary: ternary . '?' ternary ':' ternary
+
+    PUNTOYCOMA  desplazar e ir al estado 102
+    '?'         desplazar e ir al estado 88
+
+
+Estado 70
+
+    8 statement: WRITE '(' STR . ')' PUNTOYCOMA
+    9          | WRITE '(' STR . COMA ternary ')' PUNTOYCOMA
+
+    COMA  desplazar e ir al estado 103
+    ')'   desplazar e ir al estado 104
+
+
+Estado 71
+
+    7 statement: WRITE '(' ternary . ')' PUNTOYCOMA
+   16 ternary: ternary . '?' ternary ':' ternary
+
+    ')'  desplazar e ir al estado 105
+    '?'  desplazar e ir al estado 88
+
+
+Estado 72
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   43 expr: SIN '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 106
+    '?'  desplazar e ir al estado 88
+
+
+Estado 73
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   45 expr: COS '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 107
+    '?'  desplazar e ir al estado 88
+
+
+Estado 74
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   47 expr: TAN '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 108
+    '?'  desplazar e ir al estado 88
+
+
+Estado 75
+
+   10 statement: READ '(' IDENT . ')' PUNTOYCOMA
+
+    ')'  desplazar e ir al estado 109
+
+
+Estado 76
+
+   11 statement: READ '(' STR . COMA IDENT ')' PUNTOYCOMA
+
+    COMA  desplazar e ir al estado 110
+
+
+Estado 77
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   18 ifstmt: IF '(' ternary . ')' CORCHETES EOL body EOL CORCHETES
+   19       | IF '(' ternary . ')' CORCHETES EOL body EOL CORCHETES ELSE CORCHETES EOL body EOL CORCHETES
+
+    ')'  desplazar e ir al estado 111
+    '?'  desplazar e ir al estado 88
+
+
+Estado 78
+
+   21 forstmt: FOR '(' statement . statement ternary ')' CORCHETES EOL body EOL CORCHETES
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 4
+    WRITE  desplazar e ir al estado 7
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    READ   desplazar e ir al estado 11
+    IF     desplazar e ir al estado 12
+    FOR    desplazar e ir al estado 13
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    statement  ir al estado 112
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    expr       ir al estado 30
+
+
+Estado 79
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   44 expr: ASIN '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 113
+    '?'  desplazar e ir al estado 88
+
+
+Estado 80
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   46 expr: ACOS '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 114
+    '?'  desplazar e ir al estado 88
+
+
+Estado 81
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   48 expr: ATAN '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 115
+    '?'  desplazar e ir al estado 88
+
+
+Estado 82
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   20 whilestmt: WHILE '(' ternary . ')' CORCHETES EOL body EOL CORCHETES
+
+    ')'  desplazar e ir al estado 116
+    '?'  desplazar e ir al estado 88
+
+
+Estado 83
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   49 expr: CEIL '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 117
+    '?'  desplazar e ir al estado 88
+
+
+Estado 84
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   50 expr: FLOOR '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 118
+    '?'  desplazar e ir al estado 88
+
+
+Estado 85
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   51 expr: EXP '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 119
+    '?'  desplazar e ir al estado 88
+
+
+Estado 86
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   52 expr: LOG '(' ternary . ')'
+
+    ')'  desplazar e ir al estado 120
+    '?'  desplazar e ir al estado 88
+
+
+Estado 87
+
+   40 expr: '(' ternary ')' .
+
+    $default  reduce usando la regla 40 (expr)
+
+
+Estado 88
+
+   16 ternary: ternary '?' . ternary ':' ternary
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 121
+    expr     ir al estado 52
+
+
+Estado 89
+
+   24 expr: expr . OR expr
+   24     | expr OR expr .
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    AND  desplazar e ir al estado 57
+    EQ   desplazar e ir al estado 58
+    NE   desplazar e ir al estado 59
+    LE   desplazar e ir al estado 60
+    GE   desplazar e ir al estado 61
+    '<'  desplazar e ir al estado 62
+    '>'  desplazar e ir al estado 63
+    '+'  desplazar e ir al estado 64
+    '-'  desplazar e ir al estado 65
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    $default  reduce usando la regla 24 (expr)
+
+
+Estado 90
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   25     | expr AND expr .
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    EQ   desplazar e ir al estado 58
+    NE   desplazar e ir al estado 59
+    LE   desplazar e ir al estado 60
+    GE   desplazar e ir al estado 61
+    '<'  desplazar e ir al estado 62
+    '>'  desplazar e ir al estado 63
+    '+'  desplazar e ir al estado 64
+    '-'  desplazar e ir al estado 65
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    $default  reduce usando la regla 25 (expr)
+
+
+Estado 91
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   26     | expr EQ expr .
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    LE   desplazar e ir al estado 60
+    GE   desplazar e ir al estado 61
+    '<'  desplazar e ir al estado 62
+    '>'  desplazar e ir al estado 63
+    '+'  desplazar e ir al estado 64
+    '-'  desplazar e ir al estado 65
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    EQ  error (no asociativo)
+    NE  error (no asociativo)
+
+    $default  reduce usando la regla 26 (expr)
+
+
+Estado 92
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   27     | expr NE expr .
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    LE   desplazar e ir al estado 60
+    GE   desplazar e ir al estado 61
+    '<'  desplazar e ir al estado 62
+    '>'  desplazar e ir al estado 63
+    '+'  desplazar e ir al estado 64
+    '-'  desplazar e ir al estado 65
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    EQ  error (no asociativo)
+    NE  error (no asociativo)
+
+    $default  reduce usando la regla 27 (expr)
+
+
+Estado 93
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   28     | expr LE expr .
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    '+'  desplazar e ir al estado 64
+    '-'  desplazar e ir al estado 65
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    LE   error (no asociativo)
+    GE   error (no asociativo)
+    '<'  error (no asociativo)
+    '>'  error (no asociativo)
+
+    $default  reduce usando la regla 28 (expr)
+
+
+Estado 94
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   29     | expr GE expr .
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    '+'  desplazar e ir al estado 64
+    '-'  desplazar e ir al estado 65
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    LE   error (no asociativo)
+    GE   error (no asociativo)
+    '<'  error (no asociativo)
+    '>'  error (no asociativo)
+
+    $default  reduce usando la regla 29 (expr)
+
+
+Estado 95
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   30     | expr '<' expr .
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    '+'  desplazar e ir al estado 64
+    '-'  desplazar e ir al estado 65
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    LE   error (no asociativo)
+    GE   error (no asociativo)
+    '<'  error (no asociativo)
+    '>'  error (no asociativo)
+
+    $default  reduce usando la regla 30 (expr)
+
+
+Estado 96
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   31     | expr '>' expr .
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    '+'  desplazar e ir al estado 64
+    '-'  desplazar e ir al estado 65
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    LE   error (no asociativo)
+    GE   error (no asociativo)
+    '<'  error (no asociativo)
+    '>'  error (no asociativo)
+
+    $default  reduce usando la regla 31 (expr)
+
+
+Estado 97
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   32     | expr '+' expr .
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    $default  reduce usando la regla 32 (expr)
+
+
+Estado 98
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   33     | expr '-' expr .
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    '*'  desplazar e ir al estado 66
+    '/'  desplazar e ir al estado 67
+    '^'  desplazar e ir al estado 68
+
+    $default  reduce usando la regla 33 (expr)
+
+
+Estado 99
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   34     | expr '*' expr .
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+
+    '^'  desplazar e ir al estado 68
+
+    $default  reduce usando la regla 34 (expr)
+
+
+Estado 100
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   35     | expr '/' expr .
+   36     | expr . '^' expr
+
+    '^'  desplazar e ir al estado 68
+
+    $default  reduce usando la regla 35 (expr)
+
+
+Estado 101
+
+   24 expr: expr . OR expr
+   25     | expr . AND expr
+   26     | expr . EQ expr
+   27     | expr . NE expr
+   28     | expr . LE expr
+   29     | expr . GE expr
+   30     | expr . '<' expr
+   31     | expr . '>' expr
+   32     | expr . '+' expr
+   33     | expr . '-' expr
+   34     | expr . '*' expr
+   35     | expr . '/' expr
+   36     | expr . '^' expr
+   36     | expr '^' expr .
+
+    '^'  desplazar e ir al estado 68
+
+    $default  reduce usando la regla 36 (expr)
+
+
+Estado 102
+
+    6 statement: IDENT '=' ternary PUNTOYCOMA .
+
+    $default  reduce usando la regla 6 (statement)
+
+
+Estado 103
+
+    9 statement: WRITE '(' STR COMA . ternary ')' PUNTOYCOMA
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 122
+    expr     ir al estado 52
+
+
+Estado 104
+
+    8 statement: WRITE '(' STR ')' . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 123
+
+
+Estado 105
+
+    7 statement: WRITE '(' ternary ')' . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 124
+
+
+Estado 106
+
+   43 expr: SIN '(' ternary ')' .
+
+    $default  reduce usando la regla 43 (expr)
+
+
+Estado 107
+
+   45 expr: COS '(' ternary ')' .
+
+    $default  reduce usando la regla 45 (expr)
+
+
+Estado 108
+
+   47 expr: TAN '(' ternary ')' .
+
+    $default  reduce usando la regla 47 (expr)
+
+
+Estado 109
+
+   10 statement: READ '(' IDENT ')' . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 125
+
+
+Estado 110
+
+   11 statement: READ '(' STR COMA . IDENT ')' PUNTOYCOMA
+
+    IDENT  desplazar e ir al estado 126
+
+
+Estado 111
+
+   18 ifstmt: IF '(' ternary ')' . CORCHETES EOL body EOL CORCHETES
+   19       | IF '(' ternary ')' . CORCHETES EOL body EOL CORCHETES ELSE CORCHETES EOL body EOL CORCHETES
+
+    CORCHETES  desplazar e ir al estado 127
+
+
+Estado 112
+
+   21 forstmt: FOR '(' statement statement . ternary ')' CORCHETES EOL body EOL CORCHETES
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 128
+    expr     ir al estado 52
+
+
+Estado 113
+
+   44 expr: ASIN '(' ternary ')' .
+
+    $default  reduce usando la regla 44 (expr)
+
+
+Estado 114
+
+   46 expr: ACOS '(' ternary ')' .
+
+    $default  reduce usando la regla 46 (expr)
+
+
+Estado 115
+
+   48 expr: ATAN '(' ternary ')' .
+
+    $default  reduce usando la regla 48 (expr)
+
+
+Estado 116
+
+   20 whilestmt: WHILE '(' ternary ')' . CORCHETES EOL body EOL CORCHETES
+
+    CORCHETES  desplazar e ir al estado 129
+
+
+Estado 117
+
+   49 expr: CEIL '(' ternary ')' .
+
+    $default  reduce usando la regla 49 (expr)
+
+
+Estado 118
+
+   50 expr: FLOOR '(' ternary ')' .
+
+    $default  reduce usando la regla 50 (expr)
+
+
+Estado 119
+
+   51 expr: EXP '(' ternary ')' .
+
+    $default  reduce usando la regla 51 (expr)
+
+
+Estado 120
+
+   52 expr: LOG '(' ternary ')' .
+
+    $default  reduce usando la regla 52 (expr)
+
+
+Estado 121
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   16        | ternary '?' ternary . ':' ternary
+
+    '?'  desplazar e ir al estado 88
+    ':'  desplazar e ir al estado 130
+
+
+Estado 122
+
+    9 statement: WRITE '(' STR COMA ternary . ')' PUNTOYCOMA
+   16 ternary: ternary . '?' ternary ':' ternary
+
+    ')'  desplazar e ir al estado 131
+    '?'  desplazar e ir al estado 88
+
+
+Estado 123
+
+    8 statement: WRITE '(' STR ')' PUNTOYCOMA .
+
+    $default  reduce usando la regla 8 (statement)
+
+
+Estado 124
+
+    7 statement: WRITE '(' ternary ')' PUNTOYCOMA .
+
+    $default  reduce usando la regla 7 (statement)
+
+
+Estado 125
+
+   10 statement: READ '(' IDENT ')' PUNTOYCOMA .
+
+    $default  reduce usando la regla 10 (statement)
+
+
+Estado 126
+
+   11 statement: READ '(' STR COMA IDENT . ')' PUNTOYCOMA
+
+    ')'  desplazar e ir al estado 132
+
+
+Estado 127
+
+   18 ifstmt: IF '(' ternary ')' CORCHETES . EOL body EOL CORCHETES
+   19       | IF '(' ternary ')' CORCHETES . EOL body EOL CORCHETES ELSE CORCHETES EOL body EOL CORCHETES
+
+    EOL  desplazar e ir al estado 133
+
+
+Estado 128
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   21 forstmt: FOR '(' statement statement ternary . ')' CORCHETES EOL body EOL CORCHETES
+
+    ')'  desplazar e ir al estado 134
+    '?'  desplazar e ir al estado 88
+
+
+Estado 129
+
+   20 whilestmt: WHILE '(' ternary ')' CORCHETES . EOL body EOL CORCHETES
+
+    EOL  desplazar e ir al estado 135
+
+
+Estado 130
+
+   16 ternary: ternary '?' ternary ':' . ternary
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 31
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    ternary  ir al estado 136
+    expr     ir al estado 52
+
+
+Estado 131
+
+    9 statement: WRITE '(' STR COMA ternary ')' . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 137
+
+
+Estado 132
+
+   11 statement: READ '(' STR COMA IDENT ')' . PUNTOYCOMA
+
+    PUNTOYCOMA  desplazar e ir al estado 138
+
+
+Estado 133
+
+   18 ifstmt: IF '(' ternary ')' CORCHETES EOL . body EOL CORCHETES
+   19       | IF '(' ternary ')' CORCHETES EOL . body EOL CORCHETES ELSE CORCHETES EOL body EOL CORCHETES
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 4
+    WRITE  desplazar e ir al estado 7
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    READ   desplazar e ir al estado 11
+    IF     desplazar e ir al estado 12
+    FOR    desplazar e ir al estado 13
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    statement  ir al estado 139
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    body       ir al estado 140
+    expr       ir al estado 30
+
+
+Estado 134
+
+   21 forstmt: FOR '(' statement statement ternary ')' . CORCHETES EOL body EOL CORCHETES
+
+    CORCHETES  desplazar e ir al estado 141
+
+
+Estado 135
+
+   20 whilestmt: WHILE '(' ternary ')' CORCHETES EOL . body EOL CORCHETES
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 4
+    WRITE  desplazar e ir al estado 7
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    READ   desplazar e ir al estado 11
+    IF     desplazar e ir al estado 12
+    FOR    desplazar e ir al estado 13
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    statement  ir al estado 139
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    body       ir al estado 142
+    expr       ir al estado 30
+
+
+Estado 136
+
+   16 ternary: ternary . '?' ternary ':' ternary
+   16        | ternary '?' ternary ':' ternary .
+
+    '?'  desplazar e ir al estado 88
+
+    '?'       [reduce usando la regla 16 (ternary)]
+    $default  reduce usando la regla 16 (ternary)
+
+
+Estado 137
+
+    9 statement: WRITE '(' STR COMA ternary ')' PUNTOYCOMA .
+
+    $default  reduce usando la regla 9 (statement)
+
+
+Estado 138
+
+   11 statement: READ '(' STR COMA IDENT ')' PUNTOYCOMA .
+
+    $default  reduce usando la regla 11 (statement)
+
+
+Estado 139
+
+   22 body: statement .
+
+    $default  reduce usando la regla 22 (body)
+
+
+Estado 140
+
+   18 ifstmt: IF '(' ternary ')' CORCHETES EOL body . EOL CORCHETES
+   19       | IF '(' ternary ')' CORCHETES EOL body . EOL CORCHETES ELSE CORCHETES EOL body EOL CORCHETES
+   23 body: body . EOL statement
+
+    EOL  desplazar e ir al estado 143
+
+
+Estado 141
+
+   21 forstmt: FOR '(' statement statement ternary ')' CORCHETES . EOL body EOL CORCHETES
+
+    EOL  desplazar e ir al estado 144
+
+
+Estado 142
+
+   20 whilestmt: WHILE '(' ternary ')' CORCHETES EOL body . EOL CORCHETES
+   23 body: body . EOL statement
+
+    EOL  desplazar e ir al estado 145
+
+
+Estado 143
+
+   18 ifstmt: IF '(' ternary ')' CORCHETES EOL body EOL . CORCHETES
+   19       | IF '(' ternary ')' CORCHETES EOL body EOL . CORCHETES ELSE CORCHETES EOL body EOL CORCHETES
+   23 body: body EOL . statement
+
+    '+'        desplazar e ir al estado 1
+    '-'        desplazar e ir al estado 2
+    '!'        desplazar e ir al estado 3
+    IDENT      desplazar e ir al estado 4
+    CORCHETES  desplazar e ir al estado 146
+    WRITE      desplazar e ir al estado 7
+    SIN        desplazar e ir al estado 8
+    COS        desplazar e ir al estado 9
+    TAN        desplazar e ir al estado 10
+    READ       desplazar e ir al estado 11
+    IF         desplazar e ir al estado 12
+    FOR        desplazar e ir al estado 13
+    ASIN       desplazar e ir al estado 14
+    ACOS       desplazar e ir al estado 15
+    ATAN       desplazar e ir al estado 16
+    WHILE      desplazar e ir al estado 17
+    CEIL       desplazar e ir al estado 18
+    FLOOR      desplazar e ir al estado 19
+    EXP        desplazar e ir al estado 20
+    LOG        desplazar e ir al estado 21
+    FLOAT      desplazar e ir al estado 22
+    '('        desplazar e ir al estado 23
+
+    statement  ir al estado 147
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    expr       ir al estado 30
+
+
+Estado 144
+
+   21 forstmt: FOR '(' statement statement ternary ')' CORCHETES EOL . body EOL CORCHETES
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 4
+    WRITE  desplazar e ir al estado 7
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    READ   desplazar e ir al estado 11
+    IF     desplazar e ir al estado 12
+    FOR    desplazar e ir al estado 13
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    statement  ir al estado 139
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    body       ir al estado 148
+    expr       ir al estado 30
+
+
+Estado 145
+
+   20 whilestmt: WHILE '(' ternary ')' CORCHETES EOL body EOL . CORCHETES
+   23 body: body EOL . statement
+
+    '+'        desplazar e ir al estado 1
+    '-'        desplazar e ir al estado 2
+    '!'        desplazar e ir al estado 3
+    IDENT      desplazar e ir al estado 4
+    CORCHETES  desplazar e ir al estado 149
+    WRITE      desplazar e ir al estado 7
+    SIN        desplazar e ir al estado 8
+    COS        desplazar e ir al estado 9
+    TAN        desplazar e ir al estado 10
+    READ       desplazar e ir al estado 11
+    IF         desplazar e ir al estado 12
+    FOR        desplazar e ir al estado 13
+    ASIN       desplazar e ir al estado 14
+    ACOS       desplazar e ir al estado 15
+    ATAN       desplazar e ir al estado 16
+    WHILE      desplazar e ir al estado 17
+    CEIL       desplazar e ir al estado 18
+    FLOOR      desplazar e ir al estado 19
+    EXP        desplazar e ir al estado 20
+    LOG        desplazar e ir al estado 21
+    FLOAT      desplazar e ir al estado 22
+    '('        desplazar e ir al estado 23
+
+    statement  ir al estado 147
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    expr       ir al estado 30
+
+
+Estado 146
+
+   18 ifstmt: IF '(' ternary ')' CORCHETES EOL body EOL CORCHETES .
+   19       | IF '(' ternary ')' CORCHETES EOL body EOL CORCHETES . ELSE CORCHETES EOL body EOL CORCHETES
+
+    ELSE  desplazar e ir al estado 150
+
+    $default  reduce usando la regla 18 (ifstmt)
+
+
+Estado 147
+
+   23 body: body EOL statement .
+
+    $default  reduce usando la regla 23 (body)
+
+
+Estado 148
+
+   21 forstmt: FOR '(' statement statement ternary ')' CORCHETES EOL body . EOL CORCHETES
+   23 body: body . EOL statement
+
+    EOL  desplazar e ir al estado 151
+
+
+Estado 149
+
+   20 whilestmt: WHILE '(' ternary ')' CORCHETES EOL body EOL CORCHETES .
+
+    $default  reduce usando la regla 20 (whilestmt)
+
+
+Estado 150
+
+   19 ifstmt: IF '(' ternary ')' CORCHETES EOL body EOL CORCHETES ELSE . CORCHETES EOL body EOL CORCHETES
+
+    CORCHETES  desplazar e ir al estado 152
+
+
+Estado 151
+
+   21 forstmt: FOR '(' statement statement ternary ')' CORCHETES EOL body EOL . CORCHETES
+   23 body: body EOL . statement
+
+    '+'        desplazar e ir al estado 1
+    '-'        desplazar e ir al estado 2
+    '!'        desplazar e ir al estado 3
+    IDENT      desplazar e ir al estado 4
+    CORCHETES  desplazar e ir al estado 153
+    WRITE      desplazar e ir al estado 7
+    SIN        desplazar e ir al estado 8
+    COS        desplazar e ir al estado 9
+    TAN        desplazar e ir al estado 10
+    READ       desplazar e ir al estado 11
+    IF         desplazar e ir al estado 12
+    FOR        desplazar e ir al estado 13
+    ASIN       desplazar e ir al estado 14
+    ACOS       desplazar e ir al estado 15
+    ATAN       desplazar e ir al estado 16
+    WHILE      desplazar e ir al estado 17
+    CEIL       desplazar e ir al estado 18
+    FLOOR      desplazar e ir al estado 19
+    EXP        desplazar e ir al estado 20
+    LOG        desplazar e ir al estado 21
+    FLOAT      desplazar e ir al estado 22
+    '('        desplazar e ir al estado 23
+
+    statement  ir al estado 147
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    expr       ir al estado 30
+
+
+Estado 152
+
+   19 ifstmt: IF '(' ternary ')' CORCHETES EOL body EOL CORCHETES ELSE CORCHETES . EOL body EOL CORCHETES
+
+    EOL  desplazar e ir al estado 154
+
+
+Estado 153
+
+   21 forstmt: FOR '(' statement statement ternary ')' CORCHETES EOL body EOL CORCHETES .
+
+    $default  reduce usando la regla 21 (forstmt)
+
+
+Estado 154
+
+   19 ifstmt: IF '(' ternary ')' CORCHETES EOL body EOL CORCHETES ELSE CORCHETES EOL . body EOL CORCHETES
+
+    '+'    desplazar e ir al estado 1
+    '-'    desplazar e ir al estado 2
+    '!'    desplazar e ir al estado 3
+    IDENT  desplazar e ir al estado 4
+    WRITE  desplazar e ir al estado 7
+    SIN    desplazar e ir al estado 8
+    COS    desplazar e ir al estado 9
+    TAN    desplazar e ir al estado 10
+    READ   desplazar e ir al estado 11
+    IF     desplazar e ir al estado 12
+    FOR    desplazar e ir al estado 13
+    ASIN   desplazar e ir al estado 14
+    ACOS   desplazar e ir al estado 15
+    ATAN   desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    CEIL   desplazar e ir al estado 18
+    FLOOR  desplazar e ir al estado 19
+    EXP    desplazar e ir al estado 20
+    LOG    desplazar e ir al estado 21
+    FLOAT  desplazar e ir al estado 22
+    '('    desplazar e ir al estado 23
+
+    statement  ir al estado 139
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    body       ir al estado 155
+    expr       ir al estado 30
+
+
+Estado 155
+
+   19 ifstmt: IF '(' ternary ')' CORCHETES EOL body EOL CORCHETES ELSE CORCHETES EOL body . EOL CORCHETES
+   23 body: body . EOL statement
+
+    EOL  desplazar e ir al estado 156
+
+
+Estado 156
+
+   19 ifstmt: IF '(' ternary ')' CORCHETES EOL body EOL CORCHETES ELSE CORCHETES EOL body EOL . CORCHETES
+   23 body: body EOL . statement
+
+    '+'        desplazar e ir al estado 1
+    '-'        desplazar e ir al estado 2
+    '!'        desplazar e ir al estado 3
+    IDENT      desplazar e ir al estado 4
+    CORCHETES  desplazar e ir al estado 157
+    WRITE      desplazar e ir al estado 7
+    SIN        desplazar e ir al estado 8
+    COS        desplazar e ir al estado 9
+    TAN        desplazar e ir al estado 10
+    READ       desplazar e ir al estado 11
+    IF         desplazar e ir al estado 12
+    FOR        desplazar e ir al estado 13
+    ASIN       desplazar e ir al estado 14
+    ACOS       desplazar e ir al estado 15
+    ATAN       desplazar e ir al estado 16
+    WHILE      desplazar e ir al estado 17
+    CEIL       desplazar e ir al estado 18
+    FLOOR      desplazar e ir al estado 19
+    EXP        desplazar e ir al estado 20
+    LOG        desplazar e ir al estado 21
+    FLOAT      desplazar e ir al estado 22
+    '('        desplazar e ir al estado 23
+
+    statement  ir al estado 147
+    ifstmt     ir al estado 27
+    whilestmt  ir al estado 28
+    forstmt    ir al estado 29
+    expr       ir al estado 30
+
+
+Estado 157
+
+   19 ifstmt: IF '(' ternary ')' CORCHETES EOL body EOL CORCHETES ELSE CORCHETES EOL body EOL CORCHETES .
+
+    $default  reduce usando la regla 19 (ifstmt)

@@ -1,0 +1,3 @@
+bison --defines -v pcc.y -o pcc.c
+flex -o inter05.lex.c pcc.l
+gcc pcc.c inter05.lex.c symtab.c stduse.c astree.c  -o x_pcc -lm
